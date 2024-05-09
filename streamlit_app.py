@@ -60,7 +60,7 @@ class Stream():
 
     def update_name(self, ชื่อ):
         ข้อความ = "User : %s" % ชื่อ
-        self.name_label.markdown(f'<div style="display: flex; justify-content: right; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
+        self.name_label.markdown(f'<div style="display: flex; justify-content: right; font-size: 24px;">{ข้อความ}</div>',unsafe_allow_html=True)
             
     # Function to Create Tab3 UI
     def tab1_ui(self):
@@ -162,7 +162,7 @@ class Stream():
 
     def update_hr(self, payload):
         ข้อความ = "Heart Rate : %d" % payload["hr"]
-        self.empty.markdown(f'<div style="display: flex; justify-content: right;">{ข้อความ}</div>',unsafe_allow_html=True)
+        self.empty.markdown(f'<div style="display: flex; justify-content: right; font-size: 24px;">{ข้อความ}</div>',unsafe_allow_html=True)
     
     # Function To Update Plot
     def animation_update(self):
@@ -184,11 +184,11 @@ class Stream():
 
             if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
                 ข้อความ = "Falling Status : Not Falling"
-                self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
+                self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
                 self.update_led(True)
             else:
                 ข้อความ = "Falling Status : Falling"
-                self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
+                self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
                 self.update_led(False)
 
         self.plot.pyplot(self.fig)
