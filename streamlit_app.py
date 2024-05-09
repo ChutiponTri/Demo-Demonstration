@@ -34,6 +34,8 @@ class Stream():
     gx1_data, gy1_data, gz1_data = [], [], []
     ax2_data, ay2_data, az2_data = [], [], []
     gx2_data, gy2_data, gz2_data = [], [], []
+    ชื่อ = ""
+    หัวใจ = ""
     def __init__(self):
         # Initialize Config
         st.set_page_config(page_title="Demonstration", page_icon="♿")
@@ -49,18 +51,6 @@ class Stream():
 
         # Function To Create Tabs
         self.tab1_ui()
-
-    # Function to update the LED indicator
-    def update_led(self, status):
-        # if len(self.ax1_data) > 1 and len(self.ax2_data) > 1:
-        if status:
-            self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:green;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
-        else:
-            self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:red;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
-
-    def update_name(self, ชื่อ):
-        ข้อความ = "User : %s" % ชื่อ
-        self.name_label.markdown(f'<div style="display: flex; justify-content: right; font-size: 24px;">{ข้อความ}</div>',unsafe_allow_html=True)
             
     # Function to Create Tab3 UI
     def tab1_ui(self):
@@ -124,7 +114,7 @@ class Stream():
 
         self.plot = st.pyplot(self.fig)
 
-        self.empty = st.empty()
+        self.hr_label = st.empty()
         
         # Create Animation 
         if start:
@@ -133,7 +123,9 @@ class Stream():
                 if stop:
                     self.broker.stop()
                     break
+                self.name_label.markdown(f'<div style="display: flex; justify-content: right; font-size: 24px;">{self.ชื่อ}</div>',unsafe_allow_html=True)
                 self.animation_update()
+                self.hr_label.markdown(f'<div style="display: flex; justify-content: right; font-size: 24px;">{self.หัวใจ}</div>',unsafe_allow_html=True)
                 
     def appendix(self):
         for _ in range(30):
@@ -143,6 +135,17 @@ class Stream():
             gx1_data.append(random.uniform(-100, 100))
             gy1_data.append(random.uniform(-100, 100))
             gz1_data.append(random.uniform(-100, 100))
+
+    def update_name(self, ชื่อ):
+        self.ชื่อ = "User : %s" % ชื่อ
+
+    # Function to update the LED indicator
+    def update_led(self, status):
+        # if len(self.ax1_data) > 1 and len(self.ax2_data) > 1:
+        if status:
+            self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:green;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
+        else:
+            self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:red;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
 
     def update1(self, payload):
         self.ax1_data.extend(payload["ax1"])
@@ -161,8 +164,7 @@ class Stream():
         self.gz2_data.extend(payload["gz2"])
 
     def update_hr(self, payload):
-        ข้อความ = "Heart Rate : %d" % payload["hr"]
-        self.empty.markdown(f'<div style="display: flex; justify-content: right; font-size: 24px;">{ข้อความ}</div>',unsafe_allow_html=True)
+        self.หัวใจ = "Heart Rate : %d" % payload
     
     # Function To Update Plot
     def animation_update(self):
@@ -234,9 +236,11 @@ class MQTT_Server():
         elif "ax2" in payload.keys():
             self.stream.update2(payload)
         elif "hr" in payload.keys():
-            self.stream.update_hr(payload)
+            self.stream.update_hr(payload["hr"])
+            print(payload["hr"])
         elif "name" in payload.keys():
             self.stream.update_name(payload["name"])
+        
         
 if __name__ == '__main__':
     stream = Stream()
