@@ -237,7 +237,6 @@ class MQTT_Server():
             self.stream.update2(payload)
         elif "hr" in payload.keys():
             self.stream.update_hr(payload["hr"])
-            print(payload["hr"])
         elif "name" in payload.keys():
             self.stream.update_name(payload["name"])
         
