@@ -47,34 +47,33 @@ class Stream():
 
         self.broker = MQTT_Server(self)
 
-        # Create a placeholder for the LED indicator
-        self.led_placeholder = st.empty()
-        
-        
-        # Simulate changing status
-        for i in range(10):
-            # Simulate changing status every second
-            status = i % 2 == 0  # Example condition, replace with your condition
-            self.update_led(status)
-
         # Function To Create Tabs
         self.tab1_ui()
 
     # Function to update the LED indicator
     def update_led(self, status):
+        # if len(self.ax1_data) > 1 and len(self.ax2_data) > 1:
         if status:
-            self.led_placeholder.markdown('<span style="color:green;font-size:20px">&#x25CF;</span>', unsafe_allow_html=True)
+            self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:green;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
         else:
-            self.led_placeholder.markdown('<span style="color:red;font-size:20px">&#x25CF;</span>', unsafe_allow_html=True)
+            self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:red;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
             
     # Function to Create Tab3 UI
     def tab1_ui(self):
         # Header
         st.header("Demonstration 🎬", divider="rainbow")
+
         col1, col2, col3 = st.columns([0.1, 0.1, 0.8])
 
         start = col1.button("Start")
         stop = col2.button("Stop")
+
+        self.led_placeholder = st.empty()
+        left, mid, right = st.columns([0.38,0.3,0.32])
+
+        self.falling_label = mid.empty()
+        self.falling_label.write("Falling Status : Unknown")
+        self.update_led(False)
 
         # Create Plot
         self.fig, ((self.ax, self.ay, self.az), (self.gx, self.gy, self.gz)) = plt.subplots(2, 3, sharex=True, sharey="row")
@@ -174,6 +173,13 @@ class Stream():
             self.line10.set_data(range(len(self.gx2_data[-100:])), self.moving_average(self.gx2_data[-100:], 5))
             self.line11.set_data(range(len(self.gy2_data[-100:])), self.moving_average(self.gy2_data[-100:], 5))
             self.line12.set_data(range(len(self.gz2_data[-100:])), self.moving_average(self.gz2_data[-100:], 5))
+
+            if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
+                self.falling_label.write("Falling Status : Not Falling")
+                self.update_led(True)
+            else:
+                self.update_led(False)
+                self.falling_label.write("Falling Status : Falling")
 
         self.plot.pyplot(self.fig)
 
