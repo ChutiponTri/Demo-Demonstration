@@ -69,7 +69,7 @@ class Stream():
         stop = col2.button("Stop")
 
         self.led_placeholder = st.empty()
-        self.update_led(False)
+        self.update_led(True)
 
         ข้อความ = "Falling Status : Unknown"
         self.falling_label = st.empty()
