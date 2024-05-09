@@ -60,7 +60,7 @@ class Stream():
 
     def update_name(self, ชื่อ):
         ข้อความ = "User : %s" % ชื่อ
-        self.name_label.markdown(f'<div style="display: flex; justify-content: right;">{ข้อความ}</div>',unsafe_allow_html=True)
+        self.name_label.markdown(f'<div style="display: flex; justify-content: right; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
             
     # Function to Create Tab3 UI
     def tab1_ui(self):
