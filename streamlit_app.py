@@ -100,8 +100,8 @@ class Stream():
 
         self.plot = st.pyplot(self.fig)
 
+        self.empty = st.empty()
         
-
         # Create Animation 
         if start:
             self.broker.start()
@@ -137,8 +137,8 @@ class Stream():
         self.gz2_data.extend(payload["gz2"])
 
     def update_hr(self, payload):
-        data_to_write = "Heart Rate : %d" % payload["hr"]
-        st.write(data_to_write)
+        ข้อความ = "Heart Rate : %d" % payload["hr"]
+        self.empty.write(ข้อความ)
     
     # Function To Update Plot
     def animation_update(self):
