@@ -57,9 +57,17 @@ class Stream():
             self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:green;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
         else:
             self.led_placeholder.markdown('<div style="display: flex; justify-content: center;"><span style="color:red;font-size:50px">&#x25CF;</span>', unsafe_allow_html=True)
+
+    def update_name(self, ชื่อ):
+        ข้อความ = "User : %s" % ชื่อ
+        self.name_label.markdown(f'<div style="display: flex; justify-content: right;">{ข้อความ}</div>',unsafe_allow_html=True)
             
     # Function to Create Tab3 UI
     def tab1_ui(self):
+        # Username
+        self.name_label = st.empty()
+        self.update_name("")
+
         # Header
         st.header("Demonstration 🎬", divider="rainbow")
 
@@ -227,6 +235,8 @@ class MQTT_Server():
             self.stream.update2(payload)
         elif "hr" in payload.keys():
             self.stream.update_hr(payload)
+        elif "name" in payload.keys():
+            self.stream.update_name(payload["name"])
         
 if __name__ == '__main__':
     stream = Stream()
