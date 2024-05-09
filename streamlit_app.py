@@ -47,9 +47,27 @@ class Stream():
 
         self.broker = MQTT_Server(self)
 
+        # Create a placeholder for the LED indicator
+        self.led_placeholder = st.empty()
+        
+        
+        # Simulate changing status
+        for i in range(10):
+            # Simulate changing status every second
+            status = i % 2 == 0  # Example condition, replace with your condition
+            self.update_led(status)
+            time.sleep(1)
+
         # Function To Create Tabs
         self.tab1_ui()
 
+      # Function to update the LED indicator
+      def update_led(self, status):
+          if status:
+              self.led_placeholder.markdown('<span style="color:green;font-size:20px">&#x25CF;</span>', unsafe_allow_html=True)
+          else:
+              self.led_placeholder.markdown('<span style="color:red;font-size:20px">&#x25CF;</span>', unsafe_allow_html=True)
+            
     # Function to Create Tab3 UI
     def tab1_ui(self):
         # Header
