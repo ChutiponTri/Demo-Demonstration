@@ -69,11 +69,11 @@ class Stream():
         stop = col2.button("Stop")
 
         self.led_placeholder = st.empty()
-        left, mid, right = st.columns([0.38,0.3,0.32])
-
-        self.falling_label = mid.empty()
-        self.falling_label.write("Falling Status : Unknown")
         self.update_led(False)
+
+        ข้อความ = "Falling Status : Unknown"
+        self.falling_label = st.empty()
+        self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
 
         # Create Plot
         self.fig, ((self.ax, self.ay, self.az), (self.gx, self.gy, self.gz)) = plt.subplots(2, 3, sharex=True, sharey="row")
@@ -154,7 +154,7 @@ class Stream():
 
     def update_hr(self, payload):
         ข้อความ = "Heart Rate : %d" % payload["hr"]
-        self.empty.write(ข้อความ)
+        self.empty.markdown(f'<div style="display: flex; justify-content: right;">{ข้อความ}</div>',unsafe_allow_html=True)
     
     # Function To Update Plot
     def animation_update(self):
@@ -175,11 +175,13 @@ class Stream():
             self.line12.set_data(range(len(self.gz2_data[-100:])), self.moving_average(self.gz2_data[-100:], 5))
 
             if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
-                self.falling_label.write("Falling Status : Not Falling")
+                ข้อความ = "Falling Status : Not Falling"
+                self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
                 self.update_led(True)
             else:
+                ข้อความ = "Falling Status : Falling"
+                self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
                 self.update_led(False)
-                self.falling_label.write("Falling Status : Falling")
 
         self.plot.pyplot(self.fig)
 
