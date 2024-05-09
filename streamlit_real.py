@@ -24,16 +24,12 @@ color = ["#0F52BA", "#FF0800"]
 max_x = 100
 max_rand = 3
 
-ax1_data, ay1_data, az1_data = [], [], []
-gx1_data, gy1_data, gz1_data = [], [], []
-ax2_data, ay2_data, az2_data = [], [], []
-gx2_data, gy2_data, gz2_data = [], [], []
+ax_data, ay_data, az_data = [], [], []
+gx_data, gy_data, gz_data = [], [], []
 
 class Stream():
-    ax1_data, ay1_data, az1_data = [], [], []
-    gx1_data, gy1_data, gz1_data = [], [], []
-    ax2_data, ay2_data, az2_data = [], [], []
-    gx2_data, gy2_data, gz2_data = [], [], []
+    ax_data, ay_data, az_data = [], [], []
+    gx_data, gy_data, gz_data = [], [], []
     def __init__(self):
         # Initialize Config
         st.set_page_config(page_title="Demonstration", page_icon="♿")
@@ -62,17 +58,11 @@ class Stream():
         # Create Plot
         self.fig, ((self.ax, self.ay, self.az), (self.gx, self.gy, self.gz)) = plt.subplots(2, 3, sharex=True, sharey="row")
         self.line1, = self.ax.plot([], [], "b-")
-        self.line2, = self.ay.plot([], [], "b-")
-        self.line3, = self.az.plot([], [], "b-")
+        self.line2, = self.ay.plot([], [], "g-")
+        self.line3, = self.az.plot([], [], "r-")
         self.line4, = self.gx.plot([], [], "b-")
-        self.line5, = self.gy.plot([], [], "b-")
-        self.line6, = self.gz.plot([], [], "b-")
-        self.line7, = self.ax.plot([], [], "r-")
-        self.line8, = self.ay.plot([], [], "r-")
-        self.line9, = self.az.plot([], [], "r-")
-        self.line10, = self.gx.plot([], [], "r-")
-        self.line11, = self.gy.plot([], [], "r-")
-        self.line12, = self.gz.plot([], [], "r-")
+        self.line5, = self.gy.plot([], [], "g-")
+        self.line6, = self.gz.plot([], [], "r-")
         
         # Set Plot X Limit
         self.ax.set_xlim(0, 100)
@@ -100,8 +90,6 @@ class Stream():
 
         self.plot = st.pyplot(self.fig)
 
-        
-
         # Create Animation 
         if start:
             self.broker.start()
@@ -113,51 +101,31 @@ class Stream():
                 
     def appendix(self):
         for _ in range(30):
-            ax1_data.append(random.uniform(-1.5, 1.5))
-            ay1_data.append(random.uniform(-1.5, 1.5))
-            az1_data.append(random.uniform(-1.5, 1.5))
-            gx1_data.append(random.uniform(-100, 100))
-            gy1_data.append(random.uniform(-100, 100))
-            gz1_data.append(random.uniform(-100, 100))
+            ax_data.append(random.uniform(-1.5, 1.5))
+            ay_data.append(random.uniform(-1.5, 1.5))
+            az_data.append(random.uniform(-1.5, 1.5))
+            gx_data.append(random.uniform(-100, 100))
+            gy_data.append(random.uniform(-100, 100))
+            gz_data.append(random.uniform(-100, 100))
 
-    def update1(self, payload):
-        self.ax1_data.extend(payload["ax1"])
-        self.ay1_data.extend(payload["ay1"])
-        self.az1_data.extend(payload["az1"])
-        self.gx1_data.extend(payload["gx1"])
-        self.gy1_data.extend(payload["gy1"])
-        self.gz1_data.extend(payload["gz1"])
-    
-    def update2(self, payload):
-        self.ax2_data.extend(payload["ax2"])
-        self.ay2_data.extend(payload["ay2"])
-        self.az2_data.extend(payload["az2"])
-        self.gx2_data.extend(payload["gx2"])
-        self.gy2_data.extend(payload["gy2"])
-        self.gz2_data.extend(payload["gz2"])
-
-    def update_hr(self, payload):
-        data_to_write = "Heart Rate : %d" % payload["hr"]
-        st.write(data_to_write)
+    def update(self, payload):
+        self.ax_data.extend(payload["ax"])
+        self.ay_data.extend(payload["ay"])
+        self.az_data.extend(payload["az"])
+        self.gx_data.extend(payload["gx"])
+        self.gy_data.extend(payload["gy"])
+        self.gz_data.extend(payload["gz"])
     
     # Function To Update Plot
     def animation_update(self):
         # print(len(self.ax_data))
-        if len(self.ax1_data) > 1:
-            self.line1.set_data(range(len(self.ax1_data[-100:])), self.ax1_data[-100:])
-            self.line2.set_data(range(len(self.ay1_data[-100:])), self.ay1_data[-100:])
-            self.line3.set_data(range(len(self.az1_data[-100:])), self.az1_data[-100:])
-            self.line4.set_data(range(len(self.gx1_data[-100:])), self.gx1_data[-100:])
-            self.line5.set_data(range(len(self.gy1_data[-100:])), self.gy1_data[-100:])
-            self.line6.set_data(range(len(self.gz1_data[-100:])), self.gz1_data[-100:])
-
-            self.line7.set_data(range(len(self.ax2_data[-100:])), self.ax2_data[-100:])
-            self.line8.set_data(range(len(self.ay2_data[-100:])), self.ay2_data[-100:])
-            self.line9.set_data(range(len(self.az2_data[-100:])), self.az2_data[-100:])
-            self.line10.set_data(range(len(self.gx2_data[-100:])), self.gx2_data[-100:])
-            self.line11.set_data(range(len(self.gy2_data[-100:])), self.gy2_data[-100:])
-            self.line12.set_data(range(len(self.gz2_data[-100:])), self.gz2_data[-100:])
-
+        if len(self.ax_data) > 1:
+            self.line1.set_data(range(len(self.ax_data[-100:])), self.ax_data[-100:])
+            self.line2.set_data(range(len(self.ay_data[-100:])), self.ay_data[-100:])
+            self.line3.set_data(range(len(self.az_data[-100:])), self.az_data[-100:])
+            self.line4.set_data(range(len(self.gx_data[-100:])), self.gx_data[-100:])
+            self.line5.set_data(range(len(self.gy_data[-100:])), self.gy_data[-100:])
+            self.line6.set_data(range(len(self.gz_data[-100:])), self.gz_data[-100:])
         self.plot.pyplot(self.fig)
 
     # Function To calculate Moving Average
@@ -196,12 +164,7 @@ class MQTT_Server():
         # print(f"Message {msg.topic} : {msg.payload}")
         message = msg.payload.decode("utf-8")
         payload = json.loads(message)
-        if "ax1" in payload.keys():
-            self.stream.update1(payload)
-        elif "ax2" in payload.keys():
-            self.stream.update2(payload)
-        elif "hr" in payload.keys():
-            self.stream.update_hr(payload)
+        self.stream.update(payload)
         
 if __name__ == '__main__':
     stream = Stream()
