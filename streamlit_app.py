@@ -144,19 +144,19 @@ class Stream():
     def animation_update(self):
         # print(len(self.ax_data))
         if len(self.ax1_data) > 1:
-            self.line1.set_data(range(len(self.ax1_data[-100:])), self.ax1_data[-100:])
-            self.line2.set_data(range(len(self.ay1_data[-100:])), self.ay1_data[-100:])
-            self.line3.set_data(range(len(self.az1_data[-100:])), self.az1_data[-100:])
-            self.line4.set_data(range(len(self.gx1_data[-100:])), self.gx1_data[-100:])
-            self.line5.set_data(range(len(self.gy1_data[-100:])), self.gy1_data[-100:])
-            self.line6.set_data(range(len(self.gz1_data[-100:])), self.gz1_data[-100:])
+            self.line1.set_data(range(len(self.ax1_data[-100:])), self.moving_average(self.ax1_data[-100:]))
+            self.line2.set_data(range(len(self.ay1_data[-100:])), self.moving_average(self.ay1_data[-100:]))
+            self.line3.set_data(range(len(self.az1_data[-100:])), self.moving_average(self.az1_data[-100:]))
+            self.line4.set_data(range(len(self.gx1_data[-100:])), self.moving_average(self.gx1_data[-100:]))
+            self.line5.set_data(range(len(self.gy1_data[-100:])), self.moving_average(self.gy1_data[-100:]))
+            self.line6.set_data(range(len(self.gz1_data[-100:])), self.moving_average(self.gz1_data[-100:]))
 
-            self.line7.set_data(range(len(self.ax2_data[-100:])), self.ax2_data[-100:])
-            self.line8.set_data(range(len(self.ay2_data[-100:])), self.ay2_data[-100:])
-            self.line9.set_data(range(len(self.az2_data[-100:])), self.az2_data[-100:])
-            self.line10.set_data(range(len(self.gx2_data[-100:])), self.gx2_data[-100:])
-            self.line11.set_data(range(len(self.gy2_data[-100:])), self.gy2_data[-100:])
-            self.line12.set_data(range(len(self.gz2_data[-100:])), self.gz2_data[-100:])
+            self.line7.set_data(range(len(self.ax2_data[-100:])), self.moving_average(self.ax2_data[-100:]))
+            self.line8.set_data(range(len(self.ay2_data[-100:])), self.moving_average(self.ay2_data[-100:]))
+            self.line9.set_data(range(len(self.az2_data[-100:])), self.moving_average(self.az2_data[-100:]))
+            self.line10.set_data(range(len(self.gx2_data[-100:])), self.moving_average(self.gx2_data[-100:]))
+            self.line11.set_data(range(len(self.gy2_data[-100:])), self.moving_average(self.gy2_data[-100:]))
+            self.line12.set_data(range(len(self.gz2_data[-100:])), self.moving_average(self.gz2_data[-100:]))
 
         self.plot.pyplot(self.fig)
 
