@@ -183,15 +183,15 @@ class Stream():
             self.line10.set_data(range(len(self.gx2_data[-100:])), self.moving_average(self.gx2_data[-100:], 5))
             self.line11.set_data(range(len(self.gy2_data[-100:])), self.moving_average(self.gy2_data[-100:], 5))
             self.line12.set_data(range(len(self.gz2_data[-100:])), self.moving_average(self.gz2_data[-100:], 5))
-
-            if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
-                ข้อความ = "Falling Status : Not Falling"
-                self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
-                self.update_led(True)
-            else:
-                ข้อความ = "Falling Status : Falling"
-                self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
-                self.update_led(False)
+            if self.az1_data and self.az2_data:
+              if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
+                  ข้อความ = "Falling Status : Not Falling"
+                  self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
+                  self.update_led(True)
+              else:
+                  ข้อความ = "Falling Status : Falling"
+                  self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
+                  self.update_led(False)
 
         self.plot.pyplot(self.fig)
 
