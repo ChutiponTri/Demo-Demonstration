@@ -34,6 +34,8 @@ class Stream():
     gx1_data, gy1_data, gz1_data = [], [], []
     ax2_data, ay2_data, az2_data = [], [], []
     gx2_data, gy2_data, gz2_data = [], [], []
+    axm_data, aym_data, azm_data = [], [], []
+    gxm_data, gym_data, gzm_data = [], [], []
     ชื่อ = ""
     หัวใจ = ""
     def __init__(self):
@@ -87,6 +89,12 @@ class Stream():
         self.line10, = self.gx.plot([], [], "r-")
         self.line11, = self.gy.plot([], [], "r-")
         self.line12, = self.gz.plot([], [], "r-")
+        self.line13, = self.ax.plot([], [], "g-")
+        self.line14, = self.ay.plot([], [], "g-")
+        self.line15, = self.az.plot([], [], "g-")
+        self.line16, = self.gx.plot([], [], "g-")
+        self.line17, = self.gy.plot([], [], "g-")
+        self.line18, = self.gz.plot([], [], "g-")
         
         # Set Plot X Limit
         self.ax.set_xlim(0, 100)
@@ -163,6 +171,14 @@ class Stream():
         self.gy2_data.extend(payload["gy2"])
         self.gz2_data.extend(payload["gz2"])
 
+    def update_m(self, payload):
+        self.axm_data.extend(payload["axm"])
+        self.aym_data.extend(payload["aym"])
+        self.azm_data.extend(payload["azm"])
+        self.gxm_data.extend(payload["gxm"])
+        self.gym_data.extend(payload["gym"])
+        self.gzm_data.extend(payload["gzm"])
+
     def update_hr(self, payload):
         self.หัวใจ = "Heart Rate : %d" % payload
     
@@ -183,15 +199,23 @@ class Stream():
             self.line10.set_data(range(len(self.gx2_data[-100:])), self.moving_average(self.gx2_data[-100:], 5))
             self.line11.set_data(range(len(self.gy2_data[-100:])), self.moving_average(self.gy2_data[-100:], 5))
             self.line12.set_data(range(len(self.gz2_data[-100:])), self.moving_average(self.gz2_data[-100:], 5))
+
+            self.line13.set_data(range(len(self.axm_data[-100:])), self.moving_average(self.axm_data[-100:], 5))
+            self.line14.set_data(range(len(self.aym_data[-100:])), self.moving_average(self.aym_data[-100:], 5))
+            self.line15.set_data(range(len(self.azm_data[-100:])), self.moving_average(self.azm_data[-100:], 5))
+            self.line16.set_data(range(len(self.gxm_data[-100:])), self.moving_average(self.gxm_data[-100:], 5))
+            self.line17.set_data(range(len(self.gym_data[-100:])), self.moving_average(self.gym_data[-100:], 5))
+            self.line18.set_data(range(len(self.gzm_data[-100:])), self.moving_average(self.gzm_data[-100:], 5))
+
             if self.az1_data and self.az2_data:
-              if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
-                  ข้อความ = "Falling Status : Not Falling"
-                  self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
-                  self.update_led(True)
-              else:
-                  ข้อความ = "Falling Status : Falling"
-                  self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
-                  self.update_led(False)
+                if (-0.7 < self.az1_data[-1] < 0.7) and (-0.7 < self.az2_data[-1] < 0.7):
+                    ข้อความ = "Falling Status : Not Falling"
+                    self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
+                    self.update_led(True)
+                else:
+                    ข้อความ = "Falling Status : Falling"
+                    self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
+                    self.update_led(False)
 
         self.plot.pyplot(self.fig)
 
@@ -235,6 +259,8 @@ class MQTT_Server():
             self.stream.update1(payload)
         elif "ax2" in payload.keys():
             self.stream.update2(payload)
+        elif "axm" in payload.keys():
+            self.stream.update_m(payload)
         elif "hr" in payload.keys():
             self.stream.update_hr(payload["hr"])
         elif "name" in payload.keys():
