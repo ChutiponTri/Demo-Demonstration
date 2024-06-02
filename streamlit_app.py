@@ -61,7 +61,7 @@ class Stream():
         self.update_name("")
 
         # Header
-        st.header("Demonstration 🎬", divider="rainbow")
+        st.header("ALL Wheelchair Dashboard 🎬", divider="rainbow")
 
         col1, col2, col3 = st.columns([0.1, 0.1, 0.8])
 
