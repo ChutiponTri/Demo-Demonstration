@@ -40,7 +40,7 @@ class Stream():
     หัวใจ = ""
     def __init__(self):
         # Initialize Config
-        st.set_page_config(page_title="Demonstration", page_icon="♿")
+        st.set_page_config(page_title="Dashboard", page_icon="♿")
         hide_header = """
                     <style>
                     # MainMenu {visibility: hidden;}
