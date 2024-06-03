@@ -40,7 +40,7 @@ class Stream():
     หัวใจ = ""
     def __init__(self):
         # Initialize Config
-        st.set_page_config(page_title="Dashboard", page_icon="♿")
+        st.set_page_config(page_title="ALL Dashboard", page_icon="♿")
         hide_header = """
                     <style>
                     # MainMenu {visibility: hidden;}
@@ -89,12 +89,12 @@ class Stream():
         self.line10, = self.gx.plot([], [], "r-")
         self.line11, = self.gy.plot([], [], "r-")
         self.line12, = self.gz.plot([], [], "r-")
-        self.line13, = self.ax.plot([], [], "g-")
-        self.line14, = self.ay.plot([], [], "g-")
-        self.line15, = self.az.plot([], [], "g-")
-        self.line16, = self.gx.plot([], [], "g-")
-        self.line17, = self.gy.plot([], [], "g-")
-        self.line18, = self.gz.plot([], [], "g-")
+        self.line13, = self.ax.plot([], [], "#03C04A")
+        self.line14, = self.ay.plot([], [], "#03C04A")
+        self.line15, = self.az.plot([], [], "#03C04A")
+        self.line16, = self.gx.plot([], [], "#03C04A")
+        self.line17, = self.gy.plot([], [], "#03C04A")
+        self.line18, = self.gz.plot([], [], "#03C04A")
         
         # Set Plot X Limit
         self.ax.set_xlim(0, 100)
@@ -120,7 +120,7 @@ class Stream():
         self.gy.set_title("Gyroscope Y")
         self.gz.set_title("Gyroscope Z")
 
-        self.plot = st.pyplot(self.fig)
+        self.plot = st.plotly_chart(self.fig)
 
         self.hr_label = st.empty()
         
@@ -217,7 +217,7 @@ class Stream():
                     self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
                     self.update_led(False)
 
-        self.plot.pyplot(self.fig)
+        self.plot.plotly_chart(self.fig)
 
     # Function To calculate Moving Average
     def moving_average(self, data, window_size):
@@ -265,7 +265,6 @@ class MQTT_Server():
             self.stream.update_hr(payload["hr"])
         elif "name" in payload.keys():
             self.stream.update_name(payload["name"])
-        
         
 if __name__ == '__main__':
     stream = Stream()
