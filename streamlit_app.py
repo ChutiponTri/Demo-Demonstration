@@ -120,7 +120,7 @@ class Stream():
         self.gy.set_title("Gyroscope Y")
         self.gz.set_title("Gyroscope Z")
 
-        self.plot = st.plotly_chart(self.fig)
+        self.plot = st.pyplot(self.fig)
 
         self.hr_label = st.empty()
         
@@ -217,7 +217,7 @@ class Stream():
                     self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
                     self.update_led(False)
 
-        self.plot.plotly_chart(self.fig)
+        self.plot.pyplot(self.fig)
 
     # Function To calculate Moving Average
     def moving_average(self, data, window_size):
