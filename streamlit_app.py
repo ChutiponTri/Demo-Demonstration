@@ -77,24 +77,26 @@ class Stream():
 
         # Create Plot
         self.fig, ((self.ax, self.ay, self.az), (self.gx, self.gy, self.gz)) = plt.subplots(2, 3, sharex=True, sharey="row")
-        self.line1, = self.ax.plot([], [], "b-")
+        self.line1, = self.ax.plot([], [], "b-", label="Right Wheel")
         self.line2, = self.ay.plot([], [], "b-")
         self.line3, = self.az.plot([], [], "b-")
         self.line4, = self.gx.plot([], [], "b-")
         self.line5, = self.gy.plot([], [], "b-")
         self.line6, = self.gz.plot([], [], "b-")
-        self.line7, = self.ax.plot([], [], "r-")
+        self.line7, = self.ax.plot([], [], "r-", label="Left Wheel")
         self.line8, = self.ay.plot([], [], "r-")
         self.line9, = self.az.plot([], [], "r-")
         self.line10, = self.gx.plot([], [], "r-")
         self.line11, = self.gy.plot([], [], "r-")
         self.line12, = self.gz.plot([], [], "r-")
-        self.line13, = self.ax.plot([], [], "#03C04A")
+        self.line13, = self.ax.plot([], [], "#03C04A", label="Arm")
         self.line14, = self.ay.plot([], [], "#03C04A")
         self.line15, = self.az.plot([], [], "#03C04A")
         self.line16, = self.gx.plot([], [], "#03C04A")
         self.line17, = self.gy.plot([], [], "#03C04A")
         self.line18, = self.gz.plot([], [], "#03C04A")
+        
+        self.fig.legend(bbox_to_anchor=(0.2, -0.1), loc='lower center')
         
         # Set Plot X Limit
         self.ax.set_xlim(0, 100)
