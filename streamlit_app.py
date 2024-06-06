@@ -95,6 +95,11 @@ class Stream():
         self.line16, = self.gx.plot([], [], "#03C04A")
         self.line17, = self.gy.plot([], [], "#03C04A")
         self.line18, = self.gz.plot([], [], "#03C04A")
+
+        # Set Plot Y Label
+        self.ax.set_ylabel("Gravity (g)")
+        self.gx.set_ylabel("Velocity (deg/s)")
+
         
         self.fig.legend(bbox_to_anchor=(0.2, -0.1), loc='lower center')
         
