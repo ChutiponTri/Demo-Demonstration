@@ -243,7 +243,7 @@ class MQTT_Server():
         self.client.on_message = self.on_message
 
         self.topic = "ton/server/#"
-        broker_address = "broker.hivemq.com"
+        broker_address = "broker.emqx.io"
         broker_port = 1883
 
         self.client.connect(broker_address, broker_port)
