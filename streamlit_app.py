@@ -76,8 +76,8 @@ class Stream():
         self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
 
         # Create Plot
-        self.fig, ((self.ax, self.ay, self.az)) = plt.subplots(1, 3, figsize=(1, 4))
-        self.fig2, ((self.gx, self.gy, self.gz)) = plt.subplots(1, 3, figsize=(1, 4))
+        self.fig, ((self.ax, self.ay, self.az)) = plt.subplots(1, 3, figsize=(2, 3))
+        self.fig2, ((self.gx, self.gy, self.gz)) = plt.subplots(1, 3, figsize=(2, 3))
         self.line1, = self.ax.plot([], [], "b-", label="Right Wheel")
         self.line2, = self.ay.plot([], [], "b-")
         self.line3, = self.az.plot([], [], "b-")
@@ -226,7 +226,7 @@ class Stream():
                     self.update_led(False)
 
         self.plot.plotly_chart(self.fig, use_container_width=True)
-        self.plot2.plotly_chart(self.fig, use_container_width=True)
+        self.plot2.plotly_chart(self.fig2, use_container_width=True)
 
     # Function To calculate Moving Average
     def moving_average(self, data, window_size):
