@@ -95,14 +95,9 @@ class Stream():
         self.line16, = self.gx.plot([], [], "#03C04A")
         self.line17, = self.gy.plot([], [], "#03C04A")
         self.line18, = self.gz.plot([], [], "#03C04A")
-
-        # Set Plot Y Label
-        self.ax.set_ylabel("Gravity (g)")
-        self.gx.set_ylabel("Velocity (deg/s)")
-
         
         self.fig.legend(bbox_to_anchor=(0.2, -0.1), loc='lower center')
-        
+
         # Set Plot X Limit
         self.ax.set_xlim(0, 100)
         self.ay.set_xlim(0, 100)
@@ -119,6 +114,10 @@ class Stream():
         self.gy.set_ylim(-200, 200)
         self.gz.set_ylim(-200, 200)
 
+        # Set Plot Y Label
+        self.ax.set_ylabel("Gravity (g)")
+        self.gx.set_ylabel("Velocity (deg/s)")
+
         # Set Plot Title
         self.ax.set_title("Accelerometer X")
         self.ay.set_title("Accelerometer Y")
@@ -127,7 +126,7 @@ class Stream():
         self.gy.set_title("Gyroscope Y")
         self.gz.set_title("Gyroscope Z")
 
-        self.plot = st.pyplot(self.fig)
+        self.plot = st.plotly_chart(self.fig)
 
         self.hr_label = st.empty()
         
@@ -224,7 +223,7 @@ class Stream():
                     self.falling_label.markdown(f'<div style="display: flex; justify-content: center; font-size: 20px;">{ข้อความ}</div>',unsafe_allow_html=True)
                     self.update_led(False)
 
-        self.plot.pyplot(self.fig)
+        self.plot.plotly_chart(self.fig)
 
     # Function To calculate Moving Average
     def moving_average(self, data, window_size):
