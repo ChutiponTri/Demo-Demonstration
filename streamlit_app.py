@@ -76,8 +76,8 @@ class Stream():
         self.falling_label.markdown(f'<div style="display: flex; justify-content: center;">{ข้อความ}</div>',unsafe_allow_html=True)
 
         # Create Plot
-        self.fig, ((self.ax, self.ay, self.az)) = plt.subplots(1, 3, figsize=(2, 2))
-        self.fig2, ((self.gx, self.gy, self.gz)) = plt.subplots(1, 3, figsize=(2, 2))
+        self.fig, ((self.ax, self.ay, self.az)) = plt.subplots(1, 3, figsize=(2, 1))
+        self.fig2, ((self.gx, self.gy, self.gz)) = plt.subplots(1, 3, figsize=(2, 1))
         self.line1, = self.ax.plot([], [], "b-", label="Right Wheel")
         self.line2, = self.ay.plot([], [], "b-")
         self.line3, = self.az.plot([], [], "b-")
