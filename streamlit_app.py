@@ -125,7 +125,11 @@ class Stream():
         self.gx.set_title("Gyroscope X")
         self.gy.set_title("Gyroscope Y")
         self.gz.set_title("Gyroscope Z")
-
+      
+        self.fig.update_yaxes(visible=False, row=1, col=2)
+        self.fig.update_yaxes(visible=False, row=1, col=3)
+        self.fig.update_yaxes(visible=False, row=2, col=2)
+        self.fig.update_yaxes(visible=False, row=2, col=3)
         self.plot = st.plotly_chart(self.fig, use_container_width=True)
 
         self.hr_label = st.empty()
